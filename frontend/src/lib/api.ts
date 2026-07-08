@@ -17,7 +17,7 @@ export type BookingPayload = {
 };
 
 export async function checkDateAvailability(date: string): Promise<{ available: boolean; nextAvailableDates: string[] }> {
-  const res = await fetch(`${API_URL}/booked-dates/check?date=${encodeURIComponent(date)}`, {
+  const res = await fetch(`${API_URL}/api/booked-dates/check?date=${encodeURIComponent(date)}`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to check date availability");
@@ -25,7 +25,7 @@ export async function checkDateAvailability(date: string): Promise<{ available: 
 }
 
 export async function submitBooking(payload: BookingPayload) {
-  const res = await fetch(`${API_URL}/bookings`, {
+  const res = await fetch(`${API_URL}/api/bookings`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -38,7 +38,7 @@ export async function submitBooking(payload: BookingPayload) {
 }
 
 export async function adminLogin(username: string, password: string) {
-  const res = await fetch(`${API_URL}/auth/login`, {
+  const res = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
@@ -48,7 +48,7 @@ export async function adminLogin(username: string, password: string) {
 }
 
 export async function fetchBookings(token: string) {
-  const res = await fetch(`${API_URL}/bookings`, {
+  const res = await fetch(`${API_URL}/api/bookings`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
@@ -57,7 +57,7 @@ export async function fetchBookings(token: string) {
 }
 
 export async function updateBookingStatus(token: string, id: string, status: "APPROVED" | "REJECTED") {
-  const res = await fetch(`${API_URL}/bookings/${id}/status`, {
+  const res = await fetch(`${API_URL}/api/bookings/${id}/status`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({ status }),
@@ -67,7 +67,7 @@ export async function updateBookingStatus(token: string, id: string, status: "AP
 }
 
 export async function addBookedDate(token: string, date: string) {
-  const res = await fetch(`${API_URL}/booked-dates`, {
+  const res = await fetch(`${API_URL}/api/booked-dates`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({ date }),
@@ -77,7 +77,7 @@ export async function addBookedDate(token: string, date: string) {
 }
 
 export async function removeBookedDate(token: string, date: string) {
-  const res = await fetch(`${API_URL}/booked-dates/${encodeURIComponent(date)}`, {
+  const res = await fetch(`${API_URL}/api/booked-dates/${encodeURIComponent(date)}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -86,7 +86,7 @@ export async function removeBookedDate(token: string, date: string) {
 }
 
 export async function fetchAllBookedDates(token: string) {
-  const res = await fetch(`${API_URL}/booked-dates`, {
+  const res = await fetch(`${API_URL}/api/booked-dates`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
