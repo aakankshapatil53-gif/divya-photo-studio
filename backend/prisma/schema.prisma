@@ -1,0 +1,67 @@
+// Prisma schema for Divya Photo Studio
+//
+// Provider is PostgreSQL — this is what Render (and most production hosts)
+// expect. Render's free Postgres works great with this out of the box.
+// For quick local experimentation without installing Postgres, you can also
+// point DATABASE_URL at a free Neon/Render Postgres instance from your
+// laptop — no local database server needed either way.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Booking {
+  id                  String        @id @default(cuid())
+  customerName        String
+  phone               String
+  whatsapp            String?
+  email               String
+  eventType           String
+  eventDate           String        // ISO date (YYYY-MM-DD)
+  eventTime           String
+  location            String
+  packageId           String
+  specialRequirements String?
+  status              BookingStatus @default(PENDING)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+}
+
+model BookedDate {
+  id        String   @id @default(cuid())
+  date      String   @unique // ISO date (YYYY-MM-DD)
+  note      String?
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  quote     String
+  rating    Int      @default(5)
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  url       String
+  category  String
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id           String @id @default(cuid())
+  username     String @unique
+  passwordHash String
+}

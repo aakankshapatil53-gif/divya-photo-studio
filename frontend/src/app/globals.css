@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF8F5;
+  color: #1C1C1C;
+}
+
+.dark body {
+  background-color: #141414;
+  color: #F5F0E6;
+}
+
+/* Glassmorphism card */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(200, 162, 74, 0.25);
+}
+
+.dark .glass {
+  background: rgba(28, 28, 28, 0.55);
+  border: 1px solid rgba(200, 162, 74, 0.2);
+}
+
+/* Gold underline accent used across headings */
+.gold-underline::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, #DDBE79, #A9812F);
+  border-radius: 999px;
+}
+
+.gold-underline-center::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Cursor glow */
+#cursor-glow {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(200,162,74,0.14) 0%, rgba(200,162,74,0) 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #DDBE79, #A9812F);
+  border-radius: 10px;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid #C8A24A;
+  outline-offset: 3px;
+}
+
+.image-zoom {
+  overflow: hidden;
+}
+.image-zoom img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.image-zoom:hover img {
+  transform: scale(1.08);
+}
